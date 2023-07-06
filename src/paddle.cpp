@@ -23,8 +23,13 @@ Paddle::Paddle(int i) {
 }
 
 void Paddle::Update() {
-    rect.x = x;
-    rect.y = y;
+    y += (speed * dir);
+
+    rect.y = y;    // sync y value
+};
+
+void Paddle::SetDir(int d) {
+    dir = d;
 };
 
 SDL_Rect *Paddle::GetRect() {

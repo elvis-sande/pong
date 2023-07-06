@@ -1,6 +1,7 @@
 #include "game.h"
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_scancode.h>
 
 bool Game::Init() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -44,10 +45,29 @@ void Game::HandleEvents(){
         }
     }
 
+    leftPaddle ->SetDir(0);    // stop/reset paddle momentum; dir = 0 if button not pressed
+    rightPaddle ->SetDir(0);
+    // paddle movements
+    if (keystates[SDL_SCANCODE_W]) {
+        leftPaddle ->SetDir(-1);     // leftpaddle call setdir()
+    };
+    if (keystates[SDL_SCANCODE_S]) {
+        leftPaddle ->SetDir(1);
+    };
+    if (keystates[SDL_SCANCODE_UP]) {
+        rightPaddle ->SetDir(-1);
+    };
+    if (keystates[SDL_SCANCODE_DOWN]) {
+        rightPaddle ->SetDir(1);
+    };
+    
 
 }
 
-void Game::Update() {}
+void Game::Update() {
+    leftPaddle ->Update();    // leftpaddle call update(), check paddle.c
+    rightPaddle ->Update();
+}
 
 void Game::Draw() {
     SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
