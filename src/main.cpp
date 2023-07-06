@@ -1,12 +1,11 @@
-#include <SDL2/SDL.h>
 #include "game.h"
 
 int main(int argc, char *argv[])
 {
-    Game game;
+    Game game;    // instantiate game object
 
-    if (game.Init()) {
-        game.GameLoop();
+    if (game.Init()) {    // If game initializes,
+        game.GameLoop();  // start gameloop method
     }
 
     game.ShutDown();

@@ -7,7 +7,7 @@ bool Game::Init() {
         return false;
     }
     
-    window = SDL_CreateWindow("pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, 0);
+    window = SDL_CreateWindow("pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     if (!window) {
         return false;
     }
@@ -16,6 +16,10 @@ bool Game::Init() {
     if (!renderer) {
         return false;
     }
+
+    // Init-xion of paddles
+    leftPaddle = new Paddle(0);
+    rightPaddle = new Paddle(1);
 
     return true;
 
@@ -32,7 +36,7 @@ void Game::GameLoop() {
 void Game::HandleEvents(){
     SDL_Event event;
 
-    const Uint8* keystates = SDL_GetKeyboardState(NULL);
+    const Uint8* keystates = SDL_GetKeyboardState(NULL);  // NULL is all keys
 
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT || keystates[SDL_SCANCODE_ESCAPE]) {
@@ -48,6 +52,11 @@ void Game::Update() {}
 void Game::Draw() {
     SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
     SDL_RenderClear(renderer);
+
+    // Draw paddles
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(renderer, leftPaddle -> GetRect());
+
     SDL_RenderPresent(renderer);
 }
 

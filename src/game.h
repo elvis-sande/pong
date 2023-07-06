@@ -1,7 +1,7 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include <SDL2/SDL.h>
+#include "paddle.h"
 
 class Game {
 
@@ -19,6 +19,9 @@ private:
     
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
+
+    // Paddle stuff added here idk y
+    class Paddle *leftPaddle, *rightPaddle;
 
 };
 
