@@ -65,7 +65,7 @@ void Game::HandleEvents(){
 }
 
 void Game::Update() {
-    leftPaddle ->Update();    // leftpaddle call update(), check paddle.c
+    leftPaddle ->Update();    // leftpaddle calls update(), check paddle.c
     rightPaddle ->Update();
 }
 

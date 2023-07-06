@@ -23,9 +23,16 @@ Paddle::Paddle(int i) {
 }
 
 void Paddle::Update() {
-    y += (speed * dir);
+    y += (speed * dir);      // set initial y val
 
-    rect.y = y;    // sync y value
+    if (y < 0){
+        y = 0;
+        }
+    else if ((y + height) > SCREEN_HEIGHT) {
+        y = SCREEN_HEIGHT - height;
+        }
+
+    rect.y = y;             // sync y value
 };
 
 void Paddle::SetDir(int d) {
