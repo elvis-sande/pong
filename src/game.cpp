@@ -56,6 +56,7 @@ void Game::Draw() {
     // Draw paddles
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(renderer, leftPaddle -> GetRect());
+    SDL_RenderFillRect(renderer, rightPaddle -> GetRect());
 
     SDL_RenderPresent(renderer);
 }
