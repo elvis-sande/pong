@@ -15,6 +15,9 @@ public:
 
     void HandleCollision(Paddle *paddle);
 
+    bool BottomCollision(Paddle *paddle);
+    bool TopCollision(Paddle *paddle);
+
     SDL_Rect *GetRect();    // getter to get private rect below, used in paddle.c getrect()
 
 
@@ -22,6 +25,8 @@ private:
     int dir = 0;
     int size = 20;
     float speed;
+    const int INITIAL_SPEED = 7;
+    const int MAX_SPEED = 12;
 
 
     Vec2 pos;

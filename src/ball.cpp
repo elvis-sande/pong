@@ -2,7 +2,7 @@
 #include "utils.h"
 
 Ball::Ball() {
-    speed = 8.f;
+    speed = INITIAL_SPEED;
 
     pos.x = SCREEN_WIDTH / 2 - size / 2;
     pos.y = SCREEN_HEIGHT / 2 - size / 2;
@@ -18,8 +18,8 @@ Ball::Ball() {
 };
 
 void Ball::Update(Paddle *lPaddle, Paddle *rPaddle) {
-    pos.y += (vel.y * speed);
-    pos.x += (vel.x * speed);
+    pos.y += vel.y * speed;
+    pos.x += vel.x * speed;
 
     HandleCollision(lPaddle);
     HandleCollision(rPaddle);
@@ -38,6 +38,31 @@ void Ball::Update(Paddle *lPaddle, Paddle *rPaddle) {
     rect.y = (int)pos.y;
 }
 
+bool Ball::BottomCollision(Paddle *paddle) {
+    bool passedBound = false;
+    bool collided = false;
+
+    if (paddle->GetId() == 0) {
+        passedBound = pos.x < size;
+    }
+    else if (paddle->GetId() == 1) {
+        passedBound = pos.x > SCREEN_WIDTH - size;
+    }
+
+    if (passedBound 
+        && pos.y <= paddle->GetRect()->y + paddle->GetRect()->h
+        && pos.y + size > paddle->GetRect()->y + paddle->GetRect()->h
+        && vel.y < 0) {
+            pos.y = paddle->GetRect()->y + paddle->GetRect()->h + 1;
+            vel.y *= -1;
+            rect.y = pos.y;
+
+            collided = true;
+        }
+        
+        return collided;
+}
+
 void Ball::HandleCollision(Paddle *paddle) {
     if ((   pos.x + size) >= paddle ->GetPos().x                           // if right side of ball touches left side of paddle,
          && pos.x <= paddle ->GetPos().x + paddle -> GetRect() -> w     // and left side of ball touches right side of paddle,
@@ -51,6 +76,8 @@ void Ball::HandleCollision(Paddle *paddle) {
             else if (paddle -> GetId() == 1) {
                 pos.x = paddle ->GetPos().x - size;
             }
+
+            if (speed < MAX_SPEED) { speed++; }
             
     }
 };

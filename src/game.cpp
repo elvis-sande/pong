@@ -80,7 +80,6 @@ void Game::Draw() {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(renderer, leftPaddle->GetRect());
     SDL_RenderFillRect(renderer, rightPaddle->GetRect());
-
     // Draw ball
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderFillRect(renderer, ball->GetRect());
