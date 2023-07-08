@@ -22,8 +22,9 @@ bool Game::Init() {
     leftPaddle = new Paddle(0);
     rightPaddle = new Paddle(1);
 
-    return true;
+    ball = new Ball;
 
+    return true;
 }
 
 void Game::GameLoop() {
@@ -45,28 +46,30 @@ void Game::HandleEvents(){
         }
     }
 
-    leftPaddle ->SetDir(0);    // stop/reset paddle momentum; dir = 0 if button not pressed
-    rightPaddle ->SetDir(0);
+    leftPaddle->SetDir(0);    // stop/reset paddle momentum; dir = 0 if button not pressed
+    rightPaddle->SetDir(0);
     // paddle movements
     if (keystates[SDL_SCANCODE_W]) {
-        leftPaddle ->SetDir(-1);     // leftpaddle call setdir()
+        leftPaddle->SetDir(-1);     // leftpaddle call setdir()
     };
     if (keystates[SDL_SCANCODE_S]) {
-        leftPaddle ->SetDir(1);
+        leftPaddle->SetDir(1);
     };
     if (keystates[SDL_SCANCODE_UP]) {
-        rightPaddle ->SetDir(-1);
+        rightPaddle->SetDir(-1);
     };
     if (keystates[SDL_SCANCODE_DOWN]) {
-        rightPaddle ->SetDir(1);
-    };
-    
+        rightPaddle->SetDir(1);
+    };   
 
 }
 
 void Game::Update() {
-    leftPaddle ->Update();    // leftpaddle calls update(), check paddle.c
-    rightPaddle ->Update();
+    leftPaddle->Update();    // leftpaddle calls update(), check paddle.c
+    rightPaddle->Update();
+
+    ball->Update(leftPaddle, rightPaddle);
+
 }
 
 void Game::Draw() {
@@ -75,14 +78,19 @@ void Game::Draw() {
 
     // Draw paddles
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, leftPaddle -> GetRect());
-    SDL_RenderFillRect(renderer, rightPaddle -> GetRect());
+    SDL_RenderFillRect(renderer, leftPaddle->GetRect());
+    SDL_RenderFillRect(renderer, rightPaddle->GetRect());
+
+    // Draw ball
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_RenderFillRect(renderer, ball->GetRect());
+
 
     SDL_RenderPresent(renderer);
 }
 
 void Game::ShutDown() {
-    SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
     SDL_Quit();
 }

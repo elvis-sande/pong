@@ -2,6 +2,7 @@
 #define GAME_H_
 
 #include "paddle.h"
+#include "ball.h"
 
 class Game {
 
@@ -20,8 +21,9 @@ private:
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
 
-    // Paddle stuff added here idk y
+    // Paddle & ball pointers added here idk y
     class Paddle *leftPaddle, *rightPaddle;
+    class Ball *ball;
 
 };
 

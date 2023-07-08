@@ -6,16 +6,16 @@ Paddle::Paddle(int i) {
 
     switch (id) {
         case 0:                           // left paddle
-            x = 0;
+            pos.x = 0;
             break;
         case 1:                           // right paddle
-            x = SCREEN_WIDTH - width;
+            pos.x = SCREEN_WIDTH - width;
             break;
     };
-    y = (SCREEN_HEIGHT / 2) - (height / 2);
+    pos.y = (SCREEN_HEIGHT / 2) - (height / 2);
 
-    rect.x = (int)x;
-    rect.y = (int)y;
+    rect.x = (int)pos.x;
+    rect.y = (int)pos.y;
     
     rect.w = width;
     rect.h = height;
@@ -23,21 +23,23 @@ Paddle::Paddle(int i) {
 }
 
 void Paddle::Update() {
-    y += (speed * dir);      // set initial y val
+    pos.y += (speed * dir);      // set initial y val
 
-    if (y < 0){
-        y = 0;
+    if (pos.y < 0){             // collision
+        pos.y = 0;
         }
-    else if ((y + height) > SCREEN_HEIGHT) {
-        y = SCREEN_HEIGHT - height;
+    else if ((pos.y + height) > SCREEN_HEIGHT) {
+        pos.y = SCREEN_HEIGHT - height;
         }
 
-    rect.y = y;             // sync y value
-};
+    rect.y = pos.y;             // sync y value
+}
 
-void Paddle::SetDir(int d) {
-    dir = d;
-};
+void Paddle::SetDir(int d) { dir = d; }
+
+int Paddle::GetId() { return id; }
+
+Vec2 Paddle::GetPos() { return pos; }    // for paddle-ball collision
 
 SDL_Rect *Paddle::GetRect() {
     return &rect;             // provides access to private rect member

@@ -10,20 +10,24 @@ public:
 
     void Update();
     
-    void SetDir(int d);    // setter for private dir below, used to move paddle in game.c handleevents()
+    void SetDir(int d);    // setter for private direction below, used to move paddle in game.c handleevents()
     
+    int GetId();
+
     SDL_Rect *GetRect();    // getter to get private rect below, used in paddle.c getrect()
 
+    Vec2 GetPos();          // added to check paddle-ball collision
 
 private:
     int id;
     int dir = 0;
     int width = 20;
     int height = 140;
-    float x, y, speed;
+    float speed;
 
+    Vec2 pos;
+    
     SDL_Rect rect;
-
 
 };
 
