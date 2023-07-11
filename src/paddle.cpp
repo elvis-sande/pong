@@ -2,7 +2,7 @@
 
 Paddle::Paddle(int i) {
     id = i;
-    speed = 20.f;
+    speed = 15.f;
 
     switch (id) {
         case 0:                           // left paddle

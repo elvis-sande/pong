@@ -9,9 +9,6 @@ public:
     Ball();
 
     void Update(Paddle *lPaddle, Paddle *rPaddle);
-    
-    void SetVel(float x, float y);    // setter for private dir below, used to move paddle in game.c handleevents()
-    void invertXVel();
 
     void HandleCollision(Paddle *paddle);
 
@@ -25,8 +22,8 @@ private:
     int dir = 0;
     int size = 20;
     float speed;
-    const int INITIAL_SPEED = 7;
-    const int MAX_SPEED = 12;
+    const int INITIAL_SPEED = 6.f;
+    const int MAX_SPEED = 12.f;
 
 
     Vec2 pos;
